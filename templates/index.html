@@ -1,150 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>团结友爱力争上游</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>团结友爱力争上游</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-    }
-
-    h1,
-    h2 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    #players,
-    #pot,
-    #money {
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 10px;
-      margin: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    #players ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    #bet,
-    #settle {
-      display: block;
-      margin: 10px auto;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #pot-amount,
-    #money-amount {
-      font-weight: bold;
-    }
-
-    @media (max-width: 600px) {
+      h1,
+      h2 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
 
       #players,
       #pot,
       #money {
-        margin: 10px 0;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
-    }
-  </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-</head>
 
-<body>
-  <h1>中国农业银行小组培训计分板</h1>
-  <div id="players">
-    <h2>组员:</h2>
-    <ul id="player-list"></ul>
-  </div>
-  <div id="pot">
-    <h2>贡献池: <span id="pot-amount">0</span></h2>
-  </div>
-  <div id="money">
-    <h2>我目前的积分: <span id="money-amount">0</span></h2>
-  </div>
-  <div>
-    <button id="bet">贡献</button>
-    <button id="settle">结算</button>
-  </div>
-  <script>
-    var socket = io.connect(
-      "http://" + document.domain + ":" + location.port
-    );
-    var playerName;
-    var playerId;
+      #players ul {
+        list-style: none;
+        padding: 0;
+      }
 
-    socket.on("connect", function () {
-      playerId = socket.id;
-      console.log("Connected");
-    });
+      #bet,
+      #settle {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-    socket.on("update", function (data) {
-      document.getElementById("pot-amount").textContent = data.pot;
-    });
+      #pot-amount,
+      #money-amount {
+        font-weight: bold;
+      }
 
-    socket.on("update_players", function (data) {
-      var playerList = document.getElementById("player-list");
-      playerList.innerHTML = "";
-      data.players.forEach(function (player) {
-        var li = document.createElement("li");
-        li.textContent = `${player.name} (${player.money})`;
-        playerList.appendChild(li);
-      });
-    });
-
-    socket.on("update_money", function (data) {
-      document.getElementById("money-amount").textContent = data.money;
-    });
-
-    socket.on("settle_message", function (data) {
-      alert(data.message);
-    });
-
-    document.getElementById("bet").addEventListener("click", function () {
-      var betAmount = parseInt(prompt("做出你的贡献："));
-
-      // Check if betAmount is a number and is not NaN
-      if (!isNaN(betAmount)) {
-        // Check if betAmount is less than or equal to 50
-        if (betAmount <= 50) {
-          socket.emit("bet", {player: playerName, bet: betAmount});
-        } else {
-          alert("赌狗，$50就得了");
+      @media (max-width: 600px) {
+        #players,
+        #pot,
+        #money {
+          margin: 10px 0;
         }
-      } else {
-        alert("你是不是不会写数字");
       }
-    });
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  </head>
 
-    document.getElementById("settle").addEventListener("click", function () {
-      var winner = prompt("Enter winner's name:");
-      socket.emit("settle", {winner: winner});
-    });
+  <body>
+    <h1>招商银行小组培训计分板</h1>
+    <div id="players">
+      <h2>组员:</h2>
+      <ul id="player-list"></ul>
+    </div>
+    <div id="pot">
+      <h2>贡献池: <span id="pot-amount">0</span></h2>
+    </div>
+    <div id="money">
+      <h2>我目前的积分: <span id="money-amount">0</span></h2>
+    </div>
+    <div>
+      <button id="bet">贡献</button>
+      <button id="settle">结算</button>
+    </div>
+    <script>
+      var socket = io.connect(
+        "http://" + document.domain + ":" + location.port
+      );
+      var playerName;
+      var playerId;
 
-    // Get username from query parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    playerName = urlParams.get("username");
+      socket.on("connect", function () {
+        playerId = socket.id;
+        console.log("Connected");
+      });
 
-    if (!playerName) {
-      window.location.href = "/";
-    } else {
-      socket.emit("join", {player: playerName});
-    }
-  </script>
-</body>
+      socket.on("update", function (data) {
+        document.getElementById("pot-amount").textContent = data.pot;
+      });
 
+      socket.on("update_players", function (data) {
+        var playerList = document.getElementById("player-list");
+        playerList.innerHTML = "";
+        data.players.forEach(function (player) {
+          var li = document.createElement("li");
+          li.textContent = `${player.name} (${player.money})`;
+          playerList.appendChild(li);
+        });
+      });
+
+      socket.on("update_money", function (data) {
+        document.getElementById("money-amount").textContent = data.money;
+      });
+
+      socket.on("settle_message", function (data) {
+        alert(data.message);
+      });
+
+      document.getElementById("bet").addEventListener("click", function () {
+        var betAmount = parseInt(prompt("做出你的贡献："));
+
+        // Check if betAmount is a number and is not NaN
+        if (!isNaN(betAmount)) {
+          // Check if betAmount is less than or equal to 50
+          if (betAmount <= 50) {
+            socket.emit("bet", { player: playerName, bet: betAmount });
+          } else {
+            alert("赌狗，$50就得了");
+          }
+        } else {
+          alert("你是不是不会写数字");
+        }
+      });
+
+      document.getElementById("settle").addEventListener("click", function () {
+        var winner = prompt("Enter winner's name:");
+        socket.emit("settle", { winner: winner });
+      });
+
+      // Get username from query parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      playerName = urlParams.get("username");
+
+      if (!playerName) {
+        window.location.href = "/";
+      } else {
+        socket.emit("join", { player: playerName });
+      }
+    </script>
+  </body>
 </html>
