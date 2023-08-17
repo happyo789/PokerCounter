@@ -55,8 +55,8 @@ def handle_join(data):
     if player not in player_data:
         players.append(player)
         player_data[player] = {"initial_money": 1000, "money": 1000, "bet_amount": 0}
-        emit("update_players", {"players": get_players_with_money()}, broadcast=True)
-        emit("update_money", {"money": player_data[player]["money"]})
+    emit("update_players", {"players": get_players_with_money()}, broadcast=True)
+    emit("update_money", {"money": player_data[player]["money"]})
 
 
 @socketio.on("bet")

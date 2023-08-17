@@ -4,52 +4,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>团结友爱力争上游</title>
+  <title>招商银行小组培训计分板</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Helvetica Neue", Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
+      background-color: #f9f9f9;
     }
 
     h1,
     h2 {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     #players,
     #pot,
     #money {
-      background-color: #fff;
-      border-radius: 5px;
-      padding: 10px;
-      margin: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     #players ul {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
 
     #bet,
     #settle {
       display: block;
-      margin: 10px auto;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
+      margin: 20px auto;
+      padding: 15px 30px;
+      background-color: #007aff;
+      color: #ffffff;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #bet:hover,
+    #settle:hover {
+      background-color: #0056b3;
     }
 
     #pot-amount,
     #money-amount {
       font-weight: bold;
+      font-size: 24px;
     }
 
     @media (max-width: 600px) {
@@ -57,7 +66,8 @@
       #players,
       #pot,
       #money {
-        margin: 10px 0;
+        margin: 20px 0;
+        padding: 15px;
       }
     }
   </style>
