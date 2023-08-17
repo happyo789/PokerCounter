@@ -54,7 +54,7 @@ def handle_join(data):
     player = data["player"]
     if player not in player_data:
         players.append(player)
-        player_data[player] = {"initial_money": 1000, "money": 1000}
+        player_data[player] = {"initial_money": 1000, "money": 1000, "bet_amount": 0}
         emit("update_players", {"players": get_players_with_money()}, broadcast=True)
         emit("update_money", {"money": player_data[player]["money"]})
 
@@ -66,6 +66,7 @@ def handle_bet(data):
     bet_amount = data["bet"]
     pot += bet_amount
     player_data[player]["money"] -= bet_amount
+    player_data[player]["bet_amount"] += bet_amount
     emit("update", {"pot": pot}, broadcast=True)
     emit("update_players", {"players": get_players_with_money()}, broadcast=True)
     emit("update_money", {"money": player_data[player]["money"]})
@@ -79,14 +80,26 @@ def handle_settle(data):
     emit("update_players", {"players": get_players_with_money()}, broadcast=True)
     emit("settle_message", {"message": f"{winner} wins ${pot}!"}, broadcast=True)
     pot = 0
+    reset_bet_amount()
     emit("update", {"pot": pot}, broadcast=True)
     emit("update_money", {"money": player_data[winner]["money"]})
+    emit("update_players", {"players": get_players_with_money()}, broadcast=True)
 
 
 def get_players_with_money():
     return [
-        {"name": player, "money": player_data[player]["money"]} for player in players
+        {
+            "name": player,
+            "money": player_data[player]["money"],
+            "bet_amount": player_data[player]["bet_amount"],
+        }
+        for player in players
     ]
+
+
+def reset_bet_amount():
+    for player in players:
+        player_data[player]["bet_amount"] = 0
 
 
 if __name__ == "__main__":
