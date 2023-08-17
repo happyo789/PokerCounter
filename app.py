@@ -78,7 +78,7 @@ def handle_settle(data):
     winner = data["winner"]
     player_data[winner]["money"] += pot
     emit("update_players", {"players": get_players_with_money()}, broadcast=True)
-    emit("settle_message", {"message": f"{winner} wins ${pot}!"}, broadcast=True)
+    emit("settle_message", {"message": f"{winner} 得到了组织奖励的 {pot} 分!"}, broadcast=True)
     pot = 0
     reset_bet_amount()
     emit("update", {"pot": pot}, broadcast=True)

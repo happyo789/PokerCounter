@@ -131,7 +131,7 @@
       var betAmount = parseInt(prompt("做出你的贡献："));
 
       // Check if betAmount is a number and is not NaN
-      if (!isNaN(betAmount)) {
+      if (!isNaN(betAmount) && betAmount > 0) {
         // Check if betAmount is less than or equal to 50
         if (betAmount <= 50) {
           socket.emit("bet", {player: playerName, bet: betAmount});
@@ -139,12 +139,12 @@
           alert("赌狗，$50就得了");
         }
       } else {
-        alert("你是不是不会写数字");
+        alert("小B崽子，想玩阴的？");
       }
     });
 
     document.getElementById("settle").addEventListener("click", function () {
-      var winner = prompt("Enter winner's name:");
+      var winner = prompt("优秀组员姓名:");
       socket.emit("settle", {winner: winner});
     });
 
