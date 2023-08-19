@@ -1,2 +1,4 @@
-__pycache__/
-myenv/
+/.idea
+/target
+mvnw
+mvnw.cmd
