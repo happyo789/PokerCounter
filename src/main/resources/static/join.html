@@ -6,55 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>团结友爱力争上游</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-    <style>
-    body {
-      font-family: "Roboto", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-    }
-
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    form {
-      width: 200px;
-      margin: 0 auto;
-    }
-
-    label {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-    }
-
-    button {
-      background-color: #4285f4;
-      color: #fff;
-      font-size: 16px;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-    }
-  </style>
+    <link rel="stylesheet" href="css/join.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/text.css">
 </head>
 
 <body>
-<h1>加入我们的学习小组</h1>
+  <section>
+  <div class="text-3">
+    <div class="a">Welcome to study</div>
+    <div class="a">Welcome to study</div>
+    <a href="https://baike.baidu.com/item/%E5%BE%B7%E5%85%8B%E8%90%A8%E6%96%AF%E6%89%91%E5%85%8B/83440?fr=aladdin">想成为赌狗？</a>
+  </div>
+  </section>
 <form id="join-form">
-    <label for="username">组员名称</label>
-    <input type="text" id="username" required />
-    <button type="submit">加入小组</button>
+    <label for="username" style="display: none;">组员名称</label>
+    <input type="text" id="username" required placeholder="输入你响当当的名号"/>
+    <button type="submit" class="btn-11">加入小组</button>
 </form>
 <script>
     document

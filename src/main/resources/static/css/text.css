@@ -1,0 +1,184 @@
+
+/* 缩放扩展 */
+.text-1 {
+	font-size: 30px;
+	font-weight: 800;
+	color: #fff;
+	cursor: pointer;
+	/* 关键点，让所有的span居中显示 */
+	display: flex;
+	justify-content: center;
+}
+
+.text-1 span {
+	color: #ffff00;
+	/* 首字颜色 */
+	transition: all 0.5s;
+}
+
+.text-1 span.s {
+	/* 缩放字 */
+	color: #aaff7f;
+	/* 另一个关键点 让宽度为0 */
+	max-width: 0;
+	opacity: 0;
+}
+
+.text-1 base.over{
+	overflow: false;
+}
+
+.text-1:hover span {
+	/* 展示时，让红色字体前面有间隔 */
+	margin-left: 20px;
+}
+
+.text-1:hover span.s {
+	max-width: 1em;
+	opacity: 1;
+	margin-left: 5px;
+}
+
+/* 聚光灯 */
+.text-2{
+    position: relative;
+    /* 文字大写 */
+    text-transform: uppercase;
+    color: #FFFFFF;
+    font-size: 8rem; 
+}
+.text-2::after{
+    content: 'ocdeer';
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* 文字透明色 */
+    color: transparent;
+    background-image: linear-gradient(to right,
+    #c23616,#192a56,#00d2d3,yellow,
+    #6d214f,#2e86de,#4cd137,#e84118);
+    /* 背景绘制区域 当值为text 的时候 代表设置了文字的镂空效果 但是前提必须是文字颜色为透明色 */
+    background-clip: text;
+    /* 谷歌浏览器的私有属性 */
+    -webkit-background-clip: text;
+    /* 利用裁切来创建元素的可显示区域 circle表示创建了圆形 100px表示圆形的直径,0%和50%表示圆形的圆心 圆形的直径和圆形的圆心利用at关键字隔开 */
+    clip-path: circle(100px at 0% 50%);
+    /* 动画  名称 时长 infinite 表示无限次播放 */
+    animation: move 5s infinite;
+}
+/* 下面设置圆形移动效果 */
+@keyframes move{
+    0%{
+        clip-path: circle(100px at 0% 50%);
+    }
+    50%{
+        clip-path: circle(100px at 100% 50%);
+    }
+    100%{
+        clip-path: circle(100px at 0% 50%);
+    }
+}
+/* 切割文字 */
+
+section{
+    width: 100%;
+    height: 100px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+section .text-3{
+    /* border: 1px solid blue; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: filter 0.5s,transform 0.5s;
+}
+section .text-3 .a{
+    color: #111;
+    font-size: 4vw;
+    top: 0;
+    opacity: 1;
+    transition: top 0.5s,opacity 0.5s;
+}
+
+/* 切割文字 */
+section .text-3 .a:nth-child(1){
+    position: absolute;
+    clip-path: polygon(0% 0%,100% 0%,100% 51%,0% 51%);
+}
+section .text-3 .a:nth-child(2){
+    position: relative;
+    clip-path: polygon(0% 50%,100% 50%,100% 100%,0% 100%);
+}
+/* 触发景深效果 */
+section:hover .text-3{
+    filter: blur(10px);
+    transform: scale(0.8);
+    transition: filter 0.5s,transform 0.5s;
+}
+/* 对应的取消景深效果 */
+section .text-3:hover{
+    filter: blur(0px);
+    transform: scale(1.1);
+    transition: filter 0.5s,transform 0.5s;
+}
+/* 上半部分上移并变淡 */
+section .text-3:hover .a:nth-child(1){
+    top: -40px;
+    opacity: 0.5;
+    transition: top 0.5s,opacity 0.5s;
+}
+/* 下半部分下移并变淡 */
+section .text-3:hover .a:nth-child(2){
+    top: 40px;
+    opacity: 0.5;
+    transition: top 0.5s,opacity 0.5s;
+}
+
+/* a标签 */
+section .text-3 a{
+    position: absolute;
+    color: #111;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+section .text-3 a:hover{
+    text-decoration: underline;
+}
+section .text-3:hover a{
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+/*text-4 文字炫光*/
+.text-4{
+    color: #949494;
+    font-size: 4em;
+    font-weight: 500;
+    letter-spacing: 5px;
+    cursor: pointer;
+}
+
+.text-4 span{
+    transition: .5s;
+}
+
+.text-4:hover span:nth-child(1){
+    margin-right: 10px;
+}
+
+.text-4:hover span:nth-child(2){
+    margin-left: 40px;
+}
+
+.text-4:hover span{
+    color: #fff;
+    text-shadow: 0 0 10px #00f,
+                 0 0 20px #00f,
+                 0 0 30px #00f,
+                 0 0 80px #00f,
+                 0 0 120px #00f;
+}
